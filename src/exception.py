@@ -1,5 +1,5 @@
 import sys # used to handle exceptions
-import logging
+from src.logger import logging
 
 def error_message_detail(error,error_detail:sys):
     _,_,exec_tb = error_detail.exc_info() #exec_tb will contain the place file and line number where error occured.
