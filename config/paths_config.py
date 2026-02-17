@@ -1,0 +1,21 @@
+import os
+
+# Data ingestion
+
+RAW_DIR = "artifacts/raw"
+
+RAW_FILE_PATH = os.path.join(RAW_DIR,"stud.csv")
+
+TRAIN_FILE_PATH = os.path.join(RAW_DIR,"train.csv")
+TEST_FILE_PATH = os.path.join(RAW_DIR,"test.csv")
+
+
+
+## Data Processing
+PROCESSED_OBJ_FILE_PATH = os.path.join('artifacts','preprocessor.pkl')
+PROCESSED_DIR = 'artifacts/processed'
+PROCESSED_TRAIN_DATA_PATH = os.path.join(PROCESSED_DIR,"processed_train.csv")
+PROCESSED_TEST_DATA_PATH = os.path.join(PROCESSED_DIR,"processed_test.csv")
+
+## Model Training
+MODEL_OUTPUT_PATH = "artifacts/models/model.pkl"

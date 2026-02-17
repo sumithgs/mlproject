@@ -2,7 +2,7 @@
 
 import os
 import sys
-from dataclasses import dataclass
+import pandas as pd
 
 from catboost import CatBoostRegressor
 from sklearn.ensemble import (
@@ -12,26 +12,35 @@ from sklearn.ensemble import (
 )
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
-from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 
-from src.exception import CustomException
-from src.logger import logging
+from src.custom_exception import CustomException
+from src.logger import get_logger
 from src.utils import save_object,evaluate_models
+from config.paths_config import *
 
-
-@dataclass
-class ModelTrainerConfig:
-    trainerd_model_file_path = os.path.join('artifact','model.pkl')
+logger = get_logger(__name__)
 
 class ModelTrainer:
-    def __init__(self):
-        self.model_trainer_config = ModelTrainerConfig()
+    def __init__(self,train_path, test_path):
+        self.train_path = train_path
+        self.test_path  = test_path
 
-    def initiate_model_trainer(self,train_array,test_array):
+    def load_and_split(self):
+        """Load CSVs, convert to NumPy arrays, and split features/target"""
+        train_df = pd.read_csv(self.train_path)
+        test_df  = pd.read_csv(self.test_path)
+
+        train_array = train_df.to_numpy()
+        test_array  = test_df.to_numpy()
+
+        return train_array,test_array
+    
+    def initiate_model_trainer(self):
         try:
-            logging.info("Splitting training and test input data")
+            logger.info("Splitting training and test input data")
+            train_array,test_array = self.load_and_split()
             X_train,y_train,X_test,y_test = (
                 train_array[:,:-1],
                 train_array[:,-1],
@@ -89,21 +98,27 @@ class ModelTrainer:
             # get best model score
             best_model_score = max(sorted(model_report.values()))
 
+            logger.info(f"Evaluation report of models: {model_report}")
+
             #get best model name
             best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
             best_model = models[best_model_name]
 
-            if best_model_score<0.6:
-                raise CustomException("No best model found",sys)
-            logging.info("Best found model on both training and testing dataset")
+            # if best_model_score<0.6:
+            #     raise CustomException("No best model found",sys)
+            logger.info(f"Best found model on both training and testing dataset {best_model_name}")
 
             save_object(
-                file_path=self.model_trainer_config.trainerd_model_file_path,
+                file_path=MODEL_OUTPUT_PATH,
                 obj=best_model
             )
-            predicted = best_model.predict(X_test)
-            r2_square = r2_score(y_test,predicted)
-            return r2_square
+            logger.info(f"Saved the model to {MODEL_OUTPUT_PATH}")
         
         except Exception as e:
-            raise CustomException(e,sys)
+            logger.error("Error while Model saving stage!")
+            raise CustomException("Error while Model saving stage!",e)
+
+if __name__=="__main__":
+    obj = ModelTrainer(PROCESSED_TRAIN_DATA_PATH,PROCESSED_TEST_DATA_PATH)
+    obj.initiate_model_trainer()
+

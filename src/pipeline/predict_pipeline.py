@@ -1,25 +1,25 @@
 import sys
 import os
 import pandas as pd
-from src.exception import CustomException
-from src.logger import logging
+from src.custom_exception import CustomException
+from src.logger import get_logger
 from src.utils import load_object
+from config.paths_config import *
+logger = get_logger(__name__)
 
 class PredictPipeline:
-    def __init__(self):
-        pass
-
     def predict(self,features):
         try:
-            model_path = os.path.join('artifact','model.pkl')
-            preprocessor_path = os.path.join('artifact','preprocessor.pkl')
-            model = load_object(file_path=model_path)
-            preprocessor = load_object(file_path=preprocessor_path)
+            logger.info("Prediction pipeline initiated!")
+            model = load_object(file_path=MODEL_OUTPUT_PATH)
+            preprocessor = load_object(file_path=PROCESSED_OBJ_FILE_PATH)
+
             data_scaled = preprocessor.transform(features)
             preds = model.predict(data_scaled)
             return preds
         except Exception as e:
-            raise CustomException(e,sys)
+            logger.error("Error in the prediction stage!")
+            raise CustomException("Error in the prediction stage!",e)
 
 class CustomData:
     #responsible for mapping data from html to backend
@@ -53,6 +53,7 @@ class CustomData:
             }
             return pd.DataFrame(custom_data_input_dict)
         except Exception as e:
-            raise CustomException(e,sys)
+            logger.error("Error while managing custom data")
+            raise CustomException("Error while managing custom data",e)
 
 

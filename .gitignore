@@ -3,7 +3,11 @@ __pycache__/
 *.py[codz]
 *$py.class
 .vscode/
-artifact/
+artifacts/models
+artifacts/processed
+artifacts/preprocessor.pkl
+artifacts/raw/test.csv
+artifacts/raw/train.csv
 # C extensions
 *.so
 
