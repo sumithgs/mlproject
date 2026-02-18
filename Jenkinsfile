@@ -43,6 +43,7 @@ pipeline{
                             echo 'Running Training Pipeline...'
                             sh '''
                             . ${VENV_DIR}/bin/activate
+                            pip install --upgrade catboost
                             python3 -m src.pipeline.train_pipeline
                             '''
                         }
