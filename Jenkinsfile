@@ -14,12 +14,22 @@ pipeline{
                 }
             }
         }
-        stage('Setting up virtual environment and installing dependencies'){
-            steps{
-                script{
+        stage('Setting up virtual environment and installing dependencies') {
+            steps {
+                script {
                     echo 'Setting up virtual environment and installing dependencies.......'
                     sh '''
-                    python -m venv ${VENV_DIR}
+                    # Ensure Python 3.11 is used
+                    PYTHON_BIN=$(which python3.11)
+                    if [ -z "$PYTHON_BIN" ]; then
+                        echo "Python 3.11 not found!"
+                        exit 1
+                    fi
+
+                    # Create venv with Python 3.11
+                    $PYTHON_BIN -m venv ${VENV_DIR}
+
+                    # Activate and install dependencies
                     . ${VENV_DIR}/bin/activate
                     pip install --upgrade pip
                     pip install -e .
@@ -27,17 +37,18 @@ pipeline{
                 }
             }
         }
-        stage('Run Training Pipeline') {
-            steps {
-                script {
-                    echo 'Running Training Pipeline...'
-                    sh '''
-                    . ${VENV_DIR}/bin/activate
-                    python3 -m src.pipeline.train_pipeline
-                    '''
+
+                stage('Run Training Pipeline') {
+                    steps {
+                        script {
+                            echo 'Running Training Pipeline...'
+                            sh '''
+                            . ${VENV_DIR}/bin/activate
+                            python3 -m src.pipeline.train_pipeline
+                            '''
+                        }
+                    }
                 }
-            }
-        }
         // stage('Building and Pushing Docker Image to GCR'){
         //     steps{
         //         withCredentials([file(credentialsId: 'gcp-key' , variable : 'GOOGLE_APPLICATION_CREDENTIALS')]){
