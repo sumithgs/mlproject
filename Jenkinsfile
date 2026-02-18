@@ -14,30 +14,30 @@ pipeline{
                 }
             }
         }
-        // stage('Setting up virtual environment and installing dependencies'){
-        //     steps{
-        //         script{
-        //             echo 'Setting up virtual environment and installing dependencies.......'
-        //             sh '''
-        //             python -m venv ${VENV_DIR}
-        //             . ${VENV_DIR}/bin/activate
-        //             pip install --upgrade pip
-        //             pip install -e .
-        //             '''
-        //         }
-        //     }
-        // }
-        // stage('Run Training Pipeline') {
-        //     steps {
-        //         script {
-        //             echo 'Running Training Pipeline...'
-        //             sh '''
-        //             . ${VENV_DIR}/bin/activate
-        //             python3 -m src.pipeline.train_pipeline
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('Setting up virtual environment and installing dependencies'){
+            steps{
+                script{
+                    echo 'Setting up virtual environment and installing dependencies.......'
+                    sh '''
+                    python -m venv ${VENV_DIR}
+                    . ${VENV_DIR}/bin/activate
+                    pip install --upgrade pip
+                    pip install -e .
+                    '''
+                }
+            }
+        }
+        stage('Run Training Pipeline') {
+            steps {
+                script {
+                    echo 'Running Training Pipeline...'
+                    sh '''
+                    . ${VENV_DIR}/bin/activate
+                    python3 -m src.pipeline.train_pipeline
+                    '''
+                }
+            }
+        }
         // stage('Building and Pushing Docker Image to GCR'){
         //     steps{
         //         withCredentials([file(credentialsId: 'gcp-key' , variable : 'GOOGLE_APPLICATION_CREDENTIALS')]){
