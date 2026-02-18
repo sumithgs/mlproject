@@ -10,7 +10,7 @@ artifacts/raw/test.csv
 artifacts/raw/train.csv
 # C extensions
 *.so
-
+striped-torus-479904-v4-4ae495513dea.json
 # Distribution / packaging
 .Python
 build/
