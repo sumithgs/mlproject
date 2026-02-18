@@ -2,8 +2,8 @@ pandas
 numpy
 seaborn
 matplotlib
-scikit-learn
 catboost==1.2.8
+scikit-learn==1.3.2
 xgboost
 dill
 flask
