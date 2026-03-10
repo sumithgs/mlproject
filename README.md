@@ -2,9 +2,17 @@
 
 ## 📑 Index
 
+- [Key Highlights](#-key-highlights)
 - [Project Overview](#-project-overview)
 - [Dataset Description](#-dataset-description)
-- [Running the Training Pipeline](#-running-the-training-pipeline)
+- [Exploratory Data Analysis (EDA)](#-exploratory-data-analysis-eda)
+- [Project Structure](#-project-structure)
+- [Explanation of Important Directories & Files](#-explanation-of-important-directories--files)
+- [Machine Learning Pipeline Architecture](#-machine-learning-pipeline-architecture)
+- [Technology Stack](#️-technology-stack)
+- [Local Development Setup & Running the Pipelines](#-local-development-setup--running-the-pipelines)
+- [CI/CD & Cloud Deployment Pipeline (Jenkins + Docker + GCP)](#-cicd--cloud-deployment-pipeline-jenkins--docker--gcp)
+- [Model Performance & Application Demo](#-model-performance--application-demo)
 
 ---
 
@@ -811,7 +819,8 @@ gcloud --version
    - Cloud Run Admin
    - Storage Admin
 4. Download the **service account JSON key**.
-   ▶️ Video Tutorial
+
+▶️ Video Tutorial
 
 https://youtube.com/YOUR_GCP_SETUP_VIDEO
 
@@ -920,11 +929,32 @@ This helps identify configuration issues quickly.
 
 ---
 
-## 📈 Model Performance & Final Results
+## 📈 Model Performance & Application Demo
 
-To demonstrate the functionality of the **Student Score Prediction System**, the following video shows the full working application.
+### 📊 Model Performance
+
+Multiple regression models were trained and evaluated using the **R² Score** metric.  
+The model with the highest performance was selected as the final model for deployment.
+
+| Model Name              | R² Score |
+| ----------------------- | -------- |
+| Ridge                   | 0.880593 |
+| Linear Regression       | 0.880433 |
+| CatBoosting Regressor   | 0.851632 |
+| Random Forest Regressor | 0.848711 |
+| AdaBoost Regressor      | 0.847830 |
+| XGBRegressor            | 0.827797 |
+| Lasso                   | 0.825320 |
+| K-Neighbors Regressor   | 0.783681 |
+| Decision Tree           | 0.755587 |
+
+From the evaluation results, **Ridge Regression** achieved the highest **R² score (0.880593)** and was therefore selected as the final model for prediction.
+
+---
 
 ### 🎥 Application Demo
+
+The video below demonstrates the working web application where users input student details and receive predicted **math scores**.
 
 ▶️ Watch the demo video here:
 
