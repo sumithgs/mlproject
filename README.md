@@ -545,6 +545,12 @@ Activate the environment:
 source venv/bin/activate
 ```
 
+Install requirements.txt
+
+```bash
+pip install -r requirements.txt
+```
+
 ---
 
 ### 2️⃣ Verify Project Structure
@@ -725,7 +731,7 @@ Use **Username + Password**:
 
 ▶️ Video Tutorial
 
-https://youtube.com/YOUR_GITHUB_TOKEN_VIDEO
+[![GitHub Token Setup in Jenkins](https://img.youtube.com/vi/P3vWrNEeTh8/maxresdefault.jpg)](https://youtu.be/P3vWrNEeTh8)
 
 This tutorial explains how to generate a **GitHub Personal Access Token** and configure it in Jenkins.
 
@@ -804,13 +810,19 @@ gcloud --version
    - Owner (for development)
    - Cloud Run Admin
    - Storage Admin
-4. Download the **service account JSON key**.
+
+Enable required APIs:
+
+- Google Container Registry API
+- Artifact Registry API
+- Cloud Resource Manager API
+- Cloud Run API
 
 ▶️ Video Tutorial
 
-https://youtube.com/YOUR_GCP_SETUP_VIDEO
+[![Google Cloud Setup](https://img.youtube.com/vi/ChbKqzJuj-8/0.jpg)](https://www.youtube.com/watch?v=ChbKqzJuj-8)
 
-This tutorial shows how to configure Google Cloud for the deployment pipeline.
+Download the **service account JSON key**.
 
 Add it to Jenkins:
 
@@ -826,16 +838,7 @@ Upload the JSON key.
 
 ▶️ Video Tutorial
 
-https://youtube.com/YOUR_SECRET_FILE_VIDEO
-
-This tutorial explains how to create a **Google Cloud service account JSON key** and add it as a credential in Jenkins.
-
-Enable required APIs:
-
-- Google Container Registry API
-- Artifact Registry API
-- Cloud Resource Manager API
-- Cloud Run API
+[![Add Secret File in Jenkins](https://img.youtube.com/vi/_cGM1yeGSDg/maxresdefault.jpg)](https://youtu.be/_cGM1yeGSDg)
 
 ---
 
@@ -851,7 +854,7 @@ The Jenkins pipeline automates the following tasks:
 - Push image to **Google Container Registry**
 - Deploy application to **Google Cloud Run**
 
-Example pipeline stages:
+pipeline stages:
 
 ```
 Clone Repository
@@ -871,9 +874,7 @@ Run the pipeline by clicking **Build Now** in Jenkins.
 
 ▶️ Video Tutorial
 
-https://youtube.com/YOUR_PIPELINE_VIDEO
-
-This tutorial demonstrates how to create the Jenkins pipeline and run the CI/CD build process.
+[![Jenkins pipeline tutorial link](https://img.youtube.com/vi/F3cqsQqp4pc/maxresdefault.jpg)](https://youtu.be/F3cqsQqp4pc)
 
 ---
 
@@ -944,7 +945,7 @@ The video below demonstrates the working web application where users input stude
 
 ▶️ Watch the demo video here:
 
-https://youtube.com/YOUR_APP_DEMO_VIDEO_LINK
+[![Watch the Demo](https://img.youtube.com/vi/9ybwakVpcLg/maxresdefault.jpg)](https://youtu.be/9ybwakVpcLg)
 
 This demonstration shows:
 
